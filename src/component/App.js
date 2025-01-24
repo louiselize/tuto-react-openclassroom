@@ -5,9 +5,15 @@ import Cart from './Cart'
 import Footer from './Footer'
 import ShoppingList from './ShoppingList'
 import '../styles/Layout.css'
+import { useEffect } from 'react'
 
 function App() {
-	const [cart, updateCart] = useState([])
+	const [cart, updateCart] = useState(JSON.parse(localStorage.getItem('cart')) || [])
+
+	useEffect(() => {
+		localStorage.setItem('cart', JSON.stringify(cart))
+	}, [cart])
+	
 	return (
 		<div>
 			<Banner>
@@ -17,6 +23,7 @@ function App() {
 			<div className='lmj-layout-inner'>
 				<Cart cart={cart} updateCart={updateCart} />
 				<ShoppingList cart={cart} updateCart={updateCart} />
+				
 			</div>
 			<Footer />
 		</div>
